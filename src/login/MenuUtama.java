@@ -7,6 +7,7 @@
 
 package login;
 
+
 /**
  *
  * @author Hype
@@ -48,17 +49,24 @@ public MenuUtama(String username, String role) {
         lblWelcome = new javax.swing.JLabel();
         menulprn = new javax.swing.JButton();
         btnuser = new javax.swing.JButton();
+        btnlayanan = new javax.swing.JButton();
+        btnpelanggan1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1614, 11, 111, 577));
 
-        lblWelcome.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        lblWelcome.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        lblWelcome.setForeground(new java.awt.Color(0, 51, 51));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("LAUNDRYKU");
         lblWelcome.setToolTipText("");
+        getContentPane().add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 580, 95));
 
-        menulprn.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        menulprn.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         menulprn.setText("LAPORAN");
         menulprn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menulprn.addActionListener(new java.awt.event.ActionListener() {
@@ -66,46 +74,37 @@ public MenuUtama(String username, String role) {
                 menulprnActionPerformed(evt);
             }
         });
+        getContentPane().add(menulprn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 210, 60));
 
-        btnuser.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        btnuser.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnuser.setText("USER");
         btnuser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnuserActionPerformed(evt);
             }
         });
+        getContentPane().add(btnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, 210, 60));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(menulprn, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnuser, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 1093, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnuser, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(menulprn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 158, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
+        btnlayanan.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnlayanan.setText("LAYANAN");
+        btnlayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlayananActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlayanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 210, 60));
+
+        btnpelanggan1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnpelanggan1.setText("PELANGGAN");
+        btnpelanggan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpelanggan1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnpelanggan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 220, 60));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Downloads\\bglaundryku (2).jpg")); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -70, 770, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,6 +117,20 @@ userform fur = new userform();
     private void menulprnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menulprnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menulprnActionPerformed
+
+    private void btnlayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlayananActionPerformed
+        // TODO add your handling code here:
+        Layanan lyn = new Layanan();
+        lyn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnlayananActionPerformed
+
+    private void btnpelanggan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpelanggan1ActionPerformed
+        // TODO add your handling code here:
+        Pelanggan plg = new Pelanggan();
+        plg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnpelanggan1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,7 +168,10 @@ userform fur = new userform();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnlayanan;
+    private javax.swing.JButton btnpelanggan1;
     private javax.swing.JButton btnuser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JButton menulprn;
