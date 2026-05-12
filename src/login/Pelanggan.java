@@ -24,36 +24,62 @@ public class Pelanggan extends javax.swing.JFrame {
         kosong();
         aktif();
         datatable();
+        autoID();
+        txtid.setEditable(false);  
+        txtid.setEnabled(false);      
     }
 protected void aktif(){
     txtid.requestFocus();
 } 
 
 protected void kosong(){
-    txtid.setText("");
     txtnm.setText("");
     txtnotelpon.setText("");
     txtalamat.setText("");
     txtcari.setText("");
 
 }
+private void autoID() {
+    try {
+        String sql = "SELECT MAX(id_pelanggan) FROM pelanggan";
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        if (rs.next()) {
+            String max = rs.getString(1);
+
+            if (max == null) {
+                txtid.setText("PL1");
+            } else {
+                int num = Integer.parseInt(max.substring(2)) + 1;
+                txtid.setText("PL" + num);
+            }
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Auto ID gagal: " + e);
+    }
+}
 private void datatable(){
-     Object[] Baris = {"ID Pelanggan", "Nama", "No. Telepon", "Alamat"};
+    Object[] Baris = {"ID Pelanggan", "Nama", "No. Telepon", "Alamat"};
     tabmode = new DefaultTableModel(null, Baris);
 
     String cari = txtcari.getText();
 
     try {
-        String sql = "SELECT * FROM pelanggan WHERE id LIKE '%"+cari+"%' OR nmplgn LIKE '%"+cari+"%'";
-        Statement stat = conn.createStatement();
-        ResultSet hasil = stat.executeQuery(sql);
+String sql = "SELECT * FROM pelanggan WHERE id_pelanggan LIKE ? OR nama LIKE ?";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        stat.setString(1, "%" + cari + "%");
+        stat.setString(2, "%" + cari + "%");
+
+        ResultSet hasil = stat.executeQuery();
 
         while (hasil.next()){
             tabmode.addRow(new Object[]{
-                hasil.getString(1),
-                hasil.getString(2),
-                hasil.getString(3),
-                hasil.getString(4)
+                hasil.getString("id_pelanggan"),
+                hasil.getString("nama"),
+                hasil.getString("no_hp"),
+                hasil.getString("alamat")
             });
         }
 
@@ -123,36 +149,54 @@ public static void main(String[] args) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 156, -1));
-        getContentPane().add(txtnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 156, -1));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 156, -1));
+
+        txtnm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnmActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 240, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("ID");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 31, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 31, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("NAMA");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 55, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 55, -1));
 
-        Jlabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Jlabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Jlabel3.setText("ALAMAT");
-        getContentPane().add(Jlabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 55, -1));
-        getContentPane().add(txtalamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 156, -1));
+        getContentPane().add(Jlabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 120, -1));
+        getContentPane().add(txtalamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 240, -1));
 
-        Jlabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Jlabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Jlabel4.setText("NO TELEPON");
-        getContentPane().add(Jlabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
-        getContentPane().add(txtnotelpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 156, -1));
+        getContentPane().add(Jlabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        txtnotelpon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnotelponActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtnotelpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 240, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("DATA PELANGGAN");
         jLabel3.setToolTipText("");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 550, 40));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("DATA PELANGGAN");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
 
         tblpelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -172,7 +216,7 @@ public static void main(String[] args) {
         });
         jScrollPane2.setViewportView(tblpelanggan);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 390, 90));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 570, 850));
 
         txtcari.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcari.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +224,7 @@ public static void main(String[] args) {
                 txtcariActionPerformed(evt);
             }
         });
-        getContentPane().add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 120, -1));
+        getContentPane().add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 386, 210, 30));
 
         bsimpan.setText("SIMPAN");
         bsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +232,7 @@ public static void main(String[] args) {
                 bsimpanActionPerformed(evt);
             }
         });
-        getContentPane().add(bsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 83, -1));
+        getContentPane().add(bsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 110, -1));
 
         bubah.setText("UBAH");
         bubah.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +240,7 @@ public static void main(String[] args) {
                 bubahActionPerformed(evt);
             }
         });
-        getContentPane().add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 83, -1));
+        getContentPane().add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 100, -1));
 
         bhapus.setText("HAPUS");
         bhapus.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +248,7 @@ public static void main(String[] args) {
                 bhapusActionPerformed(evt);
             }
         });
-        getContentPane().add(bhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 83, -1));
+        getContentPane().add(bhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 100, -1));
 
         bbatal.setText("BATAL");
         bbatal.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +256,7 @@ public static void main(String[] args) {
                 bbatalActionPerformed(evt);
             }
         });
-        getContentPane().add(bbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 83, -1));
+        getContentPane().add(bbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 90, -1));
 
         bkeluar.setText("KELUAR");
         bkeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +264,7 @@ public static void main(String[] args) {
                 bkeluarActionPerformed(evt);
             }
         });
-        getContentPane().add(bkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 83, -1));
+        getContentPane().add(bkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 100, -1));
 
         bcari.setText("CARI");
         bcari.addActionListener(new java.awt.event.ActionListener() {
@@ -228,13 +272,13 @@ public static void main(String[] args) {
                 bcariActionPerformed(evt);
             }
         });
-        getContentPane().add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 83, -1));
+        getContentPane().add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 83, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
-       String sql = "INSERT INTO pelanggan (id, nmplgn, telepon, alamat) VALUES (?,?,?,?)";
+String sql = "INSERT INTO pelanggan (id_pelanggan, nama, no_hp, alamat) VALUES (?,?,?,?)";
 
     if(txtid.getText().isEmpty() || txtnm.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!");
@@ -261,13 +305,14 @@ public static void main(String[] args) {
     }
 
     datatable();
+    autoID();
 
      
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
                                    
-    String sql = "UPDATE pelanggan SET nmplgn=?, telepon=?, alamat=? WHERE id=?";
+String sql = "UPDATE pelanggan SET nama=?, no_hp=?, alamat=? WHERE id_pelanggan=?";
 
     try{
 
@@ -295,13 +340,33 @@ public static void main(String[] args) {
 
     private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
         // TODO add your handling code here:
-         
+           int ok = JOptionPane.showConfirmDialog(null, "Hapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+    
+    if (ok == JOptionPane.YES_OPTION) {
+String sql = "DELETE FROM pelanggan WHERE id_pelanggan=?";
+
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, txtid.getText());
+            stat.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+            kosong();
+            txtid.requestFocus();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal dihapus " + e);
+        }
+
+        datatable();
+    }
     }//GEN-LAST:event_bhapusActionPerformed
 
     private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
         // TODO add your handling code here:
         kosong();
         aktif();
+        autoID();
+            txtnm.requestFocus();
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
@@ -323,13 +388,26 @@ public static void main(String[] args) {
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
         String cari = txtcari.getText();
 
-        String sql = "SELECT * FROM pelanggan WHERE id LIKE '%"+cari+"%' OR nmplgn LIKE '%"+cari+"%'";
+    datatable();
     }//GEN-LAST:event_bcariActionPerformed
 
     private void txtcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcariActionPerformed
         // TODO add your handling code here:
+            datatable();
       
     }//GEN-LAST:event_txtcariActionPerformed
+
+    private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidActionPerformed
+
+    private void txtnotelponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnotelponActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnotelponActionPerformed
+
+    private void txtnmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnmActionPerformed
 
     /**
      * @param args the command line arguments
