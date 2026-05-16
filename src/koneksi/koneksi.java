@@ -14,19 +14,19 @@ import javax.swing.JOptionPane;
  * @author Hype
  */
 public class koneksi {
-   private static Connection mysqlkoneksi;
-    public static Connection getKoneksi() { // Pastikan 'public static'
-        if (mysqlkoneksi == null) {
-            try {
-                String url = "jdbc:mysql://localhost:3306/laundry";
-                String user = "root";
-                String pass = "";
-                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-                mysqlkoneksi = DriverManager.getConnection(url, user, pass);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Koneksi Gagal: " + e.getMessage());
-            }
+    public static Connection getKoneksi() {
+        try {
+            String url = "jdbc:mysql://localhost:3306/laundry";
+            String user = "root";
+            String pass = "";
+
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+
+            return DriverManager.getConnection(url, user, pass);
+
+        } catch (Exception e) {
+            System.out.println("Koneksi gagal: " + e);
+            return null;
         }
-        return mysqlkoneksi;
     }
 }

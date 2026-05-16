@@ -125,6 +125,11 @@ public class userform extends javax.swing.JFrame {
         jPanel1.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 86, 190, -1));
 
         cmb_role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
+        cmb_role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_roleActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmb_role, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 124, 190, -1));
 
         jLabel4.setText("Role");
@@ -189,8 +194,6 @@ public class userform extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 170, 71, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Downloads\\bg 1.jpg")); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +293,10 @@ try {
     JOptionPane.showMessageDialog(this, e.getMessage());
 }
     }//GEN-LAST:event_bubahActionPerformed
+
+    private void cmb_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_roleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_roleActionPerformed
 
     /**
      * @param args the command line arguments

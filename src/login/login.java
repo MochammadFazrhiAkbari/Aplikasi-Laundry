@@ -83,11 +83,17 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-try {
+    System.out.println("Tombol login diklik");
+        try {
         String sql = "SELECT * FROM user WHERE username='" + txtuser.getText() 
                    + "' AND password='" + String.valueOf(txtpass.getPassword()) + "'";
         
-        Connection conn = koneksi.getKoneksi();
+         Connection conn = koneksi.getKoneksi();
+
+        if (conn == null) {
+            JOptionPane.showMessageDialog(null, "Koneksi database gagal!");
+            return;
+        }
         java.sql.Statement stm = conn.createStatement();
         java.sql.ResultSet res = stm.executeQuery(sql);
         
@@ -104,9 +110,11 @@ try {
         } else {
             JOptionPane.showMessageDialog(null, "Username atau Password Salah!");
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    }        // TODO add your handling code here:
+} catch (Exception e) {
+    e.printStackTrace(); // WAJIB
+    JOptionPane.showMessageDialog(this, "Error: " + e);
+}
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnloginActionPerformed
 
     private void cbshowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbshowActionPerformed

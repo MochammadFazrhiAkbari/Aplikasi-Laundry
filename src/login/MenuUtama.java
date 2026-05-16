@@ -64,7 +64,7 @@ public MenuUtama(String username, String role) {
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("LAUNDRYKU");
         lblWelcome.setToolTipText("");
-        getContentPane().add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 580, 95));
+        getContentPane().add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 580, 95));
 
         menulprn.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         menulprn.setText("LAPORAN");
@@ -74,7 +74,7 @@ public MenuUtama(String username, String role) {
                 menulprnActionPerformed(evt);
             }
         });
-        getContentPane().add(menulprn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 210, 60));
+        getContentPane().add(menulprn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 230, 60));
 
         btnuser.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnuser.setText("USER");
@@ -83,7 +83,7 @@ public MenuUtama(String username, String role) {
                 btnuserActionPerformed(evt);
             }
         });
-        getContentPane().add(btnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, 210, 60));
+        getContentPane().add(btnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, 60));
 
         btnlayanan.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnlayanan.setText("LAYANAN");
@@ -92,7 +92,7 @@ public MenuUtama(String username, String role) {
                 btnlayananActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlayanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 210, 60));
+        getContentPane().add(btnlayanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 230, 60));
 
         btnpelanggan1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnpelanggan1.setText("PELANGGAN");
@@ -101,10 +101,8 @@ public MenuUtama(String username, String role) {
                 btnpelanggan1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnpelanggan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 220, 60));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Downloads\\bglaundryku (2).jpg")); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -70, 770, 450));
+        getContentPane().add(btnpelanggan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 230, 60));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 770, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
