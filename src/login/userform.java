@@ -23,7 +23,14 @@ public class userform extends javax.swing.JFrame {
     public userform() {
         initComponents();
         load_table(); // Menampilkan data saat form dibuka
-        kosong();     // Membersihkan form
+        kosong(); 
+        setSize(650, 700);
+
+    // posisi tengah
+        setLocationRelativeTo(null);
+
+    // tidak bisa maximize / resize
+        setResizable(false);// Membersihkan form
         
     }
     
@@ -31,25 +38,33 @@ public class userform extends javax.swing.JFrame {
     txt_user.requestFocus();
 }
             
-    private void load_table() {
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID User");
-        model.addColumn("Username");
-        model.addColumn("Role");
-        
-        try {
-            String sql = "SELECT id_user, username, role FROM user";
-            Connection conn = koneksi.getKoneksi();
-            Statement stm = conn.createStatement();
-            ResultSet res = stm.executeQuery(sql);
-            while (res.next()) {
-                model.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3)});
-            }
-            tabel_user.setModel(model);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+   private void load_table() {
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID User");
+    model.addColumn("Username");
+    model.addColumn("Role");
+
+    try {
+        String sql = "SELECT id_user, username, role FROM user ORDER BY id_user ASC";
+
+        Connection conn = koneksi.getKoneksi();
+        Statement stm = conn.createStatement();
+        ResultSet res = stm.executeQuery(sql);
+
+        while (res.next()) {
+            model.addRow(new Object[]{
+                res.getString(1),
+                res.getString(2),
+                res.getString(3)
+            });
         }
+
+        tabel_user.setModel(model);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, e.getMessage());
     }
+}
  private void kosong() {
     txt_id.setText(null);
     txt_user.setText(null);
@@ -88,7 +103,7 @@ public class userform extends javax.swing.JFrame {
         bbatal = new javax.swing.JButton();
         bkeluar = new javax.swing.JButton();
         bubah = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,7 +184,7 @@ public class userform extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabel_user);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 211, 374, 115));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 211, 374, 140));
 
         bbatal.setText("BATAL");
         bbatal.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +209,9 @@ public class userform extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 170, 71, -1));
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 400));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Aplikasi-Laundry\\src\\Images\\bg 1.jpg")); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 370));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,39 +231,39 @@ public class userform extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
-try {
-            String sql = "INSERT INTO user (username, password, role) VALUES (?, ?, ?)";
+    private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
+        // TODO add your handling code here:
+        try {
+            String sql = "UPDATE user SET username=?, password=?, role=? WHERE id_user=?";
             Connection conn = koneksi.getKoneksi();
             PreparedStatement pst = conn.prepareStatement(sql);
+
             pst.setString(1, txt_user.getText());
             pst.setString(2, String.valueOf(txt_pass.getPassword()));
             pst.setString(3, cmb_role.getSelectedItem().toString());
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Penyimpanan Data Berhasil");
+            pst.setString(4, txt_id.getText());
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Data Berhasil Diubah");
+
             load_table();
             kosong();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_btnsimpanActionPerformed
+        }
+    }//GEN-LAST:event_bubahActionPerformed
 
-    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-    // TODO add your handling code here:
-    try {
-    String sql = "DELETE FROM user WHERE id_user=?";
-    Connection conn = koneksi.getKoneksi();
-    PreparedStatement pst = conn.prepareStatement(sql);
-    pst.setString(1, txt_id.getText());
-    pst.executeUpdate();
-    
-    JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus");
-    load_table();
-    kosong();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, e.getMessage());
-}
-    }//GEN-LAST:event_btn_hapusActionPerformed
+    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
+        // TODO add your handling code here:
+      new MenuUtama().setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_bkeluarActionPerformed
+
+    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
+        // TODO add your handling code here:
+        kosong();
+        aktif();
+    }//GEN-LAST:event_bbatalActionPerformed
 
     private void tabel_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_userMouseClicked
         // TODO add your handling code here:
@@ -261,38 +278,39 @@ try {
         cmb_role.setSelectedItem(role);
     }//GEN-LAST:event_tabel_userMouseClicked
 
-    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-        kosong();
-        aktif();
-    }//GEN-LAST:event_bbatalActionPerformed
+        try {
+            String sql = "DELETE FROM user WHERE id_user=?";
+            Connection conn = koneksi.getKoneksi();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, txt_id.getText());
+            pst.executeUpdate();
 
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        // TODO add your handling code here:
-         dispose();
-    }//GEN-LAST:event_bkeluarActionPerformed
+            JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus");
+            load_table();
+            kosong();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_hapusActionPerformed
 
-    private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
-        // TODO add your handling code here:
-       try {
-    String sql = "UPDATE user SET username=?, password=?, role=? WHERE id_user=?";
-    Connection conn = koneksi.getKoneksi();
-    PreparedStatement pst = conn.prepareStatement(sql);
-    
-    pst.setString(1, txt_user.getText());
-    pst.setString(2, String.valueOf(txt_pass.getPassword()));
-    pst.setString(3, cmb_role.getSelectedItem().toString());
-    pst.setString(4, txt_id.getText());
-    
-    pst.executeUpdate();
-    JOptionPane.showMessageDialog(this, "Data Berhasil Diubah");
-    
-    load_table();
-    kosong();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, e.getMessage());
-}
-    }//GEN-LAST:event_bubahActionPerformed
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        try {
+            String sql = "INSERT INTO user (username, password, role) VALUES (?, ?, ?)";
+            Connection conn = koneksi.getKoneksi();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, txt_user.getText());
+            pst.setString(2, String.valueOf(txt_pass.getPassword()));
+            pst.setString(3, cmb_role.getSelectedItem().toString());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Penyimpanan Data Berhasil");
+            load_table();
+            kosong();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void cmb_roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_roleActionPerformed
         // TODO add your handling code here:
@@ -344,7 +362,7 @@ try {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;

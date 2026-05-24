@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jasperReport
+    xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://jasperreports.sourceforge.net/jasperreports
+        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="laporanNota"
+    pageWidth="226"
+    pageHeight="420"
+    columnWidth="206"
+    leftMargin="10"
+    rightMargin="10"
+    topMargin="10"
+    bottomMargin="10">
+
+    <!-- PARAMETER -->
+    <parameter name="ID_PEMBAYARAN" class="java.lang.String"/>
+
+    <!-- QUERY -->
+    <queryString>
+        <![CDATA[
+SELECT
+    p.id_pembayaran,
+    pl.nama AS nama_pelanggan,
+    t.id_transaksi,
+    p.tanggal_bayar,
+    t.grand_total AS total_bayar,
+    p.status
+FROM pembayaran p
+JOIN transaksi t
+    ON p.id_transaksi = t.id_transaksi
+JOIN pelanggan pl
+    ON t.id_pelanggan = pl.id_pelanggan
+WHERE p.id_pembayaran = $P{ID_PEMBAYARAN}
+        ]]>
+    </queryString>
+
+    <!-- FIELD -->
+    <field name="id_pembayaran" class="java.lang.String"/>
+    <field name="nama_pelanggan" class="java.lang.String"/>
+    <field name="id_transaksi" class="java.lang.String"/>
+    <field name="tanggal_bayar" class="java.sql.Date"/>
+    <field name="total_bayar" class="java.lang.Double"/>
+    <field name="status" class="java.lang.String"/>
+
+    <!-- TITLE -->
+    <title>
+    <band height="150">
+
+        <!-- LOGO -->
+        <image scaleImage="RetainShape">
+            <reportElement
+                x="78"
+                y="5"
+                width="50"
+                height="50"/>
+
+            <imageExpression><![CDATA[
+                getClass().getResource("/Images/logo.png")
+            ]]></imageExpression>
+        </image>
+
+        <!-- NAMA LAUNDRY -->
+        <staticText>
+            <reportElement
+                x="0"
+                y="60"
+                width="206"
+                height="20"/>
+
+            <textElement textAlignment="Center">
+                <font size="12" isBold="true"/>
+            </textElement>
+
+            <text><![CDATA[CLASSIC CLEAN LAUNDRY]]></text>
+        </staticText>
+
+        <!-- ALAMAT -->
+        <staticText>
+            <reportElement
+                x="10"
+                y="82"
+                width="186"
+                height="30"/>
+
+            <textElement textAlignment="Center">
+                <font size="8"/>
+            </textElement>
+
+            <text><![CDATA[
+    Jl.Reporter,Cipinang Muara,Jakarta Timur
+                ]]></text>
+        </staticText>
+
+        <!-- TELEPON -->
+        <staticText>
+            <reportElement
+                x="0"
+                y="112"
+                width="206"
+                height="15"/>
+
+            <textElement textAlignment="Center">
+                <font size="8"/>
+            </textElement>
+
+            <text><![CDATA[0897-1964-135]]></text>
+        </staticText>
+
+        <!-- GARIS -->
+        <line>
+            <reportElement
+                x="0"
+                y="135"
+                width="206"
+                height="1"/>
+        </line>
+
+    </band>
+</title>
+
+   <detail>
+    <band height="230">
+
+        <!-- JUDUL -->
+        <staticText>
+            <reportElement
+                x="0"
+                y="10"
+                width="206"
+                height="20"/>
+
+            <textElement textAlignment="Center">
+                <font size="11" isBold="true"/>
+            </textElement>
+
+            <text><![CDATA[STRUK PEMBAYARAN]]></text>
+        </staticText>
+
+        <!-- GARIS -->
+        <line>
+            <reportElement
+                x="0"
+                y="35"
+                width="206"
+                height="1"/>
+        </line>
+
+        <!-- ID BAYAR -->
+        <staticText>
+            <reportElement x="5" y="50" width="80" height="15"/>
+            <textElement>
+                <font size="8" isBold="true"/>
+            </textElement>
+            <text><![CDATA[ID Bayar]]></text>
+        </staticText>
+
+        <textField>
+            <reportElement x="100" y="50" width="100" height="15"/>
+            <textElement>
+                <font size="8"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{id_pembayaran}]]></textFieldExpression>
+        </textField>
+
+        <!-- PELANGGAN -->
+        <staticText>
+            <reportElement x="5" y="70" width="80" height="15"/>
+            <textElement>
+                <font size="8" isBold="true"/>
+            </textElement>
+            <text><![CDATA[Pelanggan]]></text>
+        </staticText>
+
+        <textField>
+            <reportElement x="100" y="70" width="100" height="15"/>
+            <textElement>
+                <font size="8"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{nama_pelanggan}]]></textFieldExpression>
+        </textField>
+
+        <!-- TRANSAKSI -->
+        <staticText>
+            <reportElement x="5" y="90" width="80" height="15"/>
+            <textElement>
+                <font size="8" isBold="true"/>
+            </textElement>
+            <text><![CDATA[ID Transaksi]]></text>
+        </staticText>
+
+        <textField>
+            <reportElement x="100" y="90" width="100" height="15"/>
+            <textElement>
+                <font size="8"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{id_transaksi}]]></textFieldExpression>
+        </textField>
+
+        <!-- TANGGAL -->
+        <staticText>
+            <reportElement x="5" y="110" width="80" height="15"/>
+            <textElement>
+                <font size="8" isBold="true"/>
+            </textElement>
+            <text><![CDATA[Tanggal]]></text>
+        </staticText>
+
+        <textField pattern="dd-MM-yyyy">
+            <reportElement x="100" y="110" width="100" height="15"/>
+            <textElement>
+                <font size="8"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{tanggal_bayar}]]></textFieldExpression>
+        </textField>
+
+        <!-- STATUS -->
+        <staticText>
+            <reportElement x="5" y="130" width="80" height="15"/>
+            <textElement>
+                <font size="8" isBold="true"/>
+            </textElement>
+            <text><![CDATA[Status]]></text>
+        </staticText>
+
+        <textField>
+            <reportElement x="100" y="130" width="100" height="15"/>
+            <textElement>
+                <font size="8"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+        </textField>
+
+        <!-- GARIS -->
+        <line>
+            <reportElement
+                x="0"
+                y="155"
+                width="206"
+                height="1"/>
+        </line>
+
+        <!-- TOTAL -->
+        <staticText>
+            <reportElement x="5" y="170" width="100" height="15"/>
+            <textElement>
+                <font size="9" isBold="true"/>
+            </textElement>
+            <text><![CDATA[Total Bayar]]></text>
+        </staticText>
+
+        <textField pattern="'Rp ' #,##0">
+            <reportElement x="90" y="170" width="115" height="15"/>
+            <textElement textAlignment="Right">
+                <font size="10" isBold="true"/>
+            </textElement>
+            <textFieldExpression><![CDATA[$F{total_bayar}]]></textFieldExpression>
+        </textField>
+
+        <!-- GARIS -->
+        <line>
+            <reportElement
+                x="0"
+                y="195"
+                width="206"
+                height="1"/>
+        </line>
+
+        <!-- TERIMA KASIH -->
+        <staticText>
+            <reportElement
+                x="0"
+                y="202"
+                width="206"
+                height="20"/>
+
+            <textElement textAlignment="Center">
+                <font size="8"/>
+            </textElement>
+
+            <text><![CDATA[Terima Kasih Sudah Menggunakan Jasa Kami]]></text>
+        </staticText>
+
+    </band>
+</detail>
+
+</jasperReport>

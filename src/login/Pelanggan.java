@@ -27,6 +27,14 @@ public class Pelanggan extends javax.swing.JFrame {
         autoID();
         txtid.setEditable(false);  
         txtid.setEnabled(false);      
+          // ukuran form
+        setSize(650, 700);
+
+    // posisi tengah
+        setLocationRelativeTo(null);
+
+    // tidak bisa maximize / resize
+        setResizable(false);
     }
 protected void aktif(){
     txtid.requestFocus();
@@ -133,6 +141,8 @@ public static void main(String[] args) {
         bbatal = new javax.swing.JButton();
         bkeluar = new javax.swing.JButton();
         bcari = new javax.swing.JButton();
+        btnKembali = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,6 +158,7 @@ public static void main(String[] args) {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(630, 670));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtid.addActionListener(new java.awt.event.ActionListener() {
@@ -155,48 +166,49 @@ public static void main(String[] args) {
                 txtidActionPerformed(evt);
             }
         });
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 156, -1));
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 156, -1));
 
         txtnm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnmActionPerformed(evt);
             }
         });
-        getContentPane().add(txtnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 240, -1));
+        getContentPane().add(txtnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 240, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("ID");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 31, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 31, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("NAMA");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 55, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 55, -1));
 
         Jlabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Jlabel3.setText("ALAMAT");
-        getContentPane().add(Jlabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 120, -1));
-        getContentPane().add(txtalamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 240, -1));
+        getContentPane().add(Jlabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 120, -1));
+        getContentPane().add(txtalamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 240, -1));
 
         Jlabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Jlabel4.setText("NO TELEPON");
-        getContentPane().add(Jlabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+        getContentPane().add(Jlabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         txtnotelpon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnotelponActionPerformed(evt);
             }
         });
-        getContentPane().add(txtnotelpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 240, -1));
+        getContentPane().add(txtnotelpon, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 240, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("DATA PELANGGAN");
         jLabel3.setToolTipText("");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 550, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 450, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("DATA PELANGGAN");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         tblpelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -216,7 +228,7 @@ public static void main(String[] args) {
         });
         jScrollPane2.setViewportView(tblpelanggan);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 570, 850));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 570, 230));
 
         txtcari.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcari.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +236,7 @@ public static void main(String[] args) {
                 txtcariActionPerformed(evt);
             }
         });
-        getContentPane().add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 386, 210, 30));
+        getContentPane().add(txtcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 210, 30));
 
         bsimpan.setText("SIMPAN");
         bsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +244,7 @@ public static void main(String[] args) {
                 bsimpanActionPerformed(evt);
             }
         });
-        getContentPane().add(bsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 110, -1));
+        getContentPane().add(bsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 110, -1));
 
         bubah.setText("UBAH");
         bubah.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +252,7 @@ public static void main(String[] args) {
                 bubahActionPerformed(evt);
             }
         });
-        getContentPane().add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 100, -1));
+        getContentPane().add(bubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 100, -1));
 
         bhapus.setText("HAPUS");
         bhapus.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +260,7 @@ public static void main(String[] args) {
                 bhapusActionPerformed(evt);
             }
         });
-        getContentPane().add(bhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 100, -1));
+        getContentPane().add(bhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 100, -1));
 
         bbatal.setText("BATAL");
         bbatal.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +268,7 @@ public static void main(String[] args) {
                 bbatalActionPerformed(evt);
             }
         });
-        getContentPane().add(bbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 90, -1));
+        getContentPane().add(bbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 90, -1));
 
         bkeluar.setText("KELUAR");
         bkeluar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +276,7 @@ public static void main(String[] args) {
                 bkeluarActionPerformed(evt);
             }
         });
-        getContentPane().add(bkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 100, -1));
+        getContentPane().add(bkeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 100, -1));
 
         bcari.setText("CARI");
         bcari.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +284,18 @@ public static void main(String[] args) {
                 bcariActionPerformed(evt);
             }
         });
-        getContentPane().add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, 83, 40));
+        getContentPane().add(bcari, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 83, 40));
+
+        btnKembali.setText("KEMBALI");
+        btnKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKembaliActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 100, 40));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Aplikasi-Laundry\\src\\Images\\bg 1.jpg")); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -409,6 +432,12 @@ String sql = "DELETE FROM pelanggan WHERE id_pelanggan=?";
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnmActionPerformed
 
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+        // TODO add your handling code here:
+         new MenuUtama().setVisible(true); 
+         this.dispose();
+    }//GEN-LAST:event_btnKembaliActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -421,11 +450,13 @@ String sql = "DELETE FROM pelanggan WHERE id_pelanggan=?";
     private javax.swing.JButton bhapus;
     private javax.swing.JButton bkeluar;
     private javax.swing.JButton bsimpan;
+    private javax.swing.JToggleButton btnKembali;
     private javax.swing.JButton bubah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

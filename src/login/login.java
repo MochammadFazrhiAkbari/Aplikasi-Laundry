@@ -11,7 +11,8 @@ import koneksi.koneksi;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import login.Session;
+import transaksi.Layanan;
 
 /**
  *
@@ -25,6 +26,14 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         this.getRootPane().setDefaultButton(btnlogin);
+        defaultEcho = txtpass.getEchoChar();
+
+
+    // posisi tengah
+    setLocationRelativeTo(null);
+
+    // tidak bisa maximize / resize
+    setResizable(false);
     }
 
     /**
@@ -76,44 +85,89 @@ public class login extends javax.swing.JFrame {
         });
         getContentPane().add(cbshow, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 111, 80, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Downloads\\bg 2.png")); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 270));
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Aplikasi-Laundry\\src\\Images\\bg 2.png")); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private char defaultEcho;
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-    System.out.println("Tombol login diklik");
-        try {
-        String sql = "SELECT * FROM user WHERE username='" + txtuser.getText() 
-                   + "' AND password='" + String.valueOf(txtpass.getPassword()) + "'";
-        
-         Connection conn = koneksi.getKoneksi();
+   try {
+
+        Connection conn = koneksi.getKoneksi();
 
         if (conn == null) {
-            JOptionPane.showMessageDialog(null, "Koneksi database gagal!");
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Koneksi database gagal!"
+            );
             return;
         }
-        java.sql.Statement stm = conn.createStatement();
-        java.sql.ResultSet res = stm.executeQuery(sql);
-        
+
+        String sql =
+                "SELECT * FROM user "
+                + "WHERE username=? AND password=?";
+
+        java.sql.PreparedStatement pst =
+                conn.prepareStatement(sql);
+
+        pst.setString(1, txtuser.getText());
+        pst.setString(2,
+                String.valueOf(txtpass.getPassword()));
+
+        ResultSet res = pst.executeQuery();
+
         if (res.next()) {
-            String role = res.getString("role"); 
-            
-            JOptionPane.showMessageDialog(null, "Login Berhasil sebagai " + role);
-            
-            // Membuka Menu Utama sambil mengirim data role
-            MenuUtama menu = new MenuUtama(txtuser.getText(), role);
+
+            Session.id_user =
+                    res.getString("id_user");
+
+            Session.username =
+                    res.getString("username");
+
+            Session.role =
+                    res.getString("role");
+
+            String role =
+                    res.getString("role");
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Login berhasil sebagai " + role
+            );
+
+            // kirim user login ke form layanan
+            Layanan.userLogin =
+                    txtuser.getText();
+
+            MenuUtama menu =
+                    new MenuUtama(
+                            txtuser.getText(),
+                            role
+                    );
+
             menu.setVisible(true);
-            
-            this.dispose(); // Menutup form login
+
+            this.dispose();
+
         } else {
-            JOptionPane.showMessageDialog(null, "Username atau Password Salah!");
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Username atau Password salah!"
+            );
         }
-} catch (Exception e) {
-    e.printStackTrace(); // WAJIB
-    JOptionPane.showMessageDialog(this, "Error: " + e);
-}
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Error : " + e.getMessage()
+        );
+    }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnloginActionPerformed
 
@@ -121,7 +175,7 @@ public class login extends javax.swing.JFrame {
 if (cbshow.isSelected()) {
         txtpass.setEchoChar((char)0); // Menampilkan teks asli
     } else {
-        txtpass.setEchoChar('*'); // Menyembunyikan kembali
+       txtpass.setEchoChar(defaultEcho); // Menyembunyikan kembali
     }        // TODO add your handling code here:
     }//GEN-LAST:event_cbshowActionPerformed
 

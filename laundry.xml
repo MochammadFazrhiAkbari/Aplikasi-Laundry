@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>laundry</name><driver>org.hsqldb.jdbcDriver</driver><username>pajri</username><password>12345</password><savePassword>true</savePassword><url>jdbc:hsqldb:res:/defaults/hsqldb/test</url><database></database><serverAddress></serverAddress></jdbcDataAdapter>

@@ -7,6 +7,17 @@
 
 package login;
 
+import java.io.File;
+import java.sql.Connection;
+import transaksi.Layanan;
+
+import javax.swing.JOptionPane;
+
+import koneksi.koneksi;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -14,14 +25,18 @@ package login;
  */
 public class MenuUtama extends javax.swing.JFrame {
 public MenuUtama(String username, String role) {
-    this.setExtendedState(MAXIMIZED_BOTH);
-        initComponents();
-        lblWelcome.setBorder(new javax.swing.border.EmptyBorder(10, 10, 10, 10));
-        lblWelcome.setText("Selamat Datang, " + username + " (" + role + ")");
-        
-        
- 
-        
+    initComponents();
+
+    setSize(700, 500);
+    setLocationRelativeTo(null);
+
+    lblWelcome.setBorder(
+        new javax.swing.border.EmptyBorder(10, 10, 10, 10)
+    );
+
+    lblWelcome.setText(
+        "Selamat Datang, " + username + " (" + role + ")"
+    );
         // Cek Role untuk membatasi hak akses
         if (role.equals("Kasir")) {
             // Contoh: Kasir tidak boleh buka Form User (Manajemen User)
@@ -34,6 +49,8 @@ public MenuUtama(String username, String role) {
      */
     public MenuUtama() {
         initComponents();
+        setSize(700, 500);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -45,26 +62,38 @@ public MenuUtama(String username, String role) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
         menulprn = new javax.swing.JButton();
         btnuser = new javax.swing.JButton();
-        btnlayanan = new javax.swing.JButton();
+        btntmbhlayanan = new javax.swing.JButton();
         btnpelanggan1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnlayanan1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
+
+        jLabel3.setText("jLabel3");
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(700, 500));
+        setMinimumSize(new java.awt.Dimension(700, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1614, 11, 111, 577));
 
+        lblWelcome.setBackground(new java.awt.Color(255, 255, 255));
         lblWelcome.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        lblWelcome.setForeground(new java.awt.Color(0, 51, 51));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblWelcome.setText("LAUNDRYKU");
+        lblWelcome.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Aplikasi-Laundry\\src\\Images\\logo1.png")); // NOI18N
         lblWelcome.setToolTipText("");
-        getContentPane().add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 580, 95));
+        getContentPane().add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 360, 210));
 
         menulprn.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         menulprn.setText("LAPORAN");
@@ -74,7 +103,7 @@ public MenuUtama(String username, String role) {
                 menulprnActionPerformed(evt);
             }
         });
-        getContentPane().add(menulprn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 230, 60));
+        getContentPane().add(menulprn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 230, 60));
 
         btnuser.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnuser.setText("USER");
@@ -83,16 +112,16 @@ public MenuUtama(String username, String role) {
                 btnuserActionPerformed(evt);
             }
         });
-        getContentPane().add(btnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, 60));
+        getContentPane().add(btnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 240, 60));
 
-        btnlayanan.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        btnlayanan.setText("LAYANAN");
-        btnlayanan.addActionListener(new java.awt.event.ActionListener() {
+        btntmbhlayanan.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btntmbhlayanan.setText("TAMBAH LAYANAN");
+        btntmbhlayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnlayananActionPerformed(evt);
+                btntmbhlayananActionPerformed(evt);
             }
         });
-        getContentPane().add(btnlayanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 230, 60));
+        getContentPane().add(btntmbhlayanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 390, 60));
 
         btnpelanggan1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         btnpelanggan1.setText("PELANGGAN");
@@ -101,27 +130,141 @@ public MenuUtama(String username, String role) {
                 btnpelanggan1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnpelanggan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 230, 60));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 770, 450));
+        getContentPane().add(btnpelanggan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 230, 60));
+
+        btnlayanan1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        btnlayanan1.setText("LAYANAN");
+        btnlayanan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlayanan1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnlayanan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, 240, 60));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Aplikasi-Laundry\\src\\Images\\bglaundryku.jpg")); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuserActionPerformed
-userform fur = new userform();
+        userform fur = new userform();
         fur.setVisible(true);;// TODO add your handling code here:
     }//GEN-LAST:event_btnuserActionPerformed
 
     private void menulprnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menulprnActionPerformed
         // TODO add your handling code here:
+        String[] pilihan = {
+        "Laporan Data Pelanggan",
+        "Laporan Transaksi Laundry",
+        "Laporan Pembayaran",
+        "Laporan Pendapatan",
+        "Laporan Pengambilan Barang",     
+    };
+
+    String pilih = (String) JOptionPane.showInputDialog(
+            null,
+            "Pilih Laporan",
+            "Menu Laporan",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            pilihan,
+            pilihan[0]
+    );
+
+    try {
+
+        Connection conn = koneksi.getKoneksi();
+
+        // LAPORAN PELANGGAN
+        if (pilih.equals("Laporan Data Pelanggan")) {
+
+            File report = new File("src/laporan/laporanPelanggan.jasper");
+
+            JasperPrint jp = JasperFillManager.fillReport(
+                    report.getPath(),
+                    null,
+                    conn
+            );
+
+            JasperViewer.viewReport(jp, false);
+        }
+
+        // LAPORAN TRANSAKSI
+        else if (pilih.equals("Laporan Transaksi Laundry")) {
+
+            File report = new File("src/laporan/laporanTransaksi.jasper");
+
+            JasperPrint jp = JasperFillManager.fillReport(
+                    report.getPath(),
+                    null,
+                    conn
+            );
+
+            JasperViewer.viewReport(jp, false);
+        }
+
+        // LAPORAN PEMBAYARAN
+        else if (pilih.equals("Laporan Pembayaran")) {
+
+            File report = new File("src/laporan/laporanPembayaran.jasper");
+
+            JasperPrint jp = JasperFillManager.fillReport(
+                    report.getPath(),
+                    null,
+                    conn
+            );
+
+            JasperViewer.viewReport(jp, false);
+        }
+
+        // LAPORAN PENDAPATAN
+        else if (pilih.equals("Laporan Pendapatan")) {
+
+            File report = new File("src/laporan/laporanPendapatan.jasper");
+
+            JasperPrint jp = JasperFillManager.fillReport(
+                    report.getPath(),
+                    null,
+                    conn
+            );
+
+            JasperViewer.viewReport(jp, false);
+        }
+        // LAPORAN PENGAMBILAN
+        else if (pilih.equals("Laporan Pengambilan Barang")) {
+
+            File report = new File(
+                "src/laporan/laporanPengambilan.jasper"
+            );
+
+            JasperPrint jp = JasperFillManager.fillReport(
+                    report.getPath(),
+                    null,
+                    conn
+            );
+
+            JasperViewer.viewReport(jp, false);
+}           
+      
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(null,
+                "Laporan gagal dibuka : " + e.getMessage());
+    }
     }//GEN-LAST:event_menulprnActionPerformed
 
-    private void btnlayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlayananActionPerformed
+    private void btntmbhlayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntmbhlayananActionPerformed
         // TODO add your handling code here:
-        Layanan lyn = new Layanan();
-        lyn.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnlayananActionPerformed
+          // buka form layanan
+           tmbhlayanan layanan = new tmbhlayanan();
+
+    layanan.setVisible(true);
+
+    this.dispose();
+
+    }//GEN-LAST:event_btntmbhlayananActionPerformed
 
     private void btnpelanggan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpelanggan1ActionPerformed
         // TODO add your handling code here:
@@ -129,6 +272,15 @@ userform fur = new userform();
         plg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnpelanggan1ActionPerformed
+
+    private void btnlayanan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlayanan1ActionPerformed
+        // TODO add your handling code here:
+       Layanan lyn= new Layanan();
+
+    lyn.setVisible(true);
+
+    this.dispose();
+    }//GEN-LAST:event_btnlayanan1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,10 +318,14 @@ userform fur = new userform();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnlayanan;
+    private javax.swing.JButton btnlayanan1;
     private javax.swing.JButton btnpelanggan1;
+    private javax.swing.JButton btntmbhlayanan;
     private javax.swing.JButton btnuser;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JButton menulprn;

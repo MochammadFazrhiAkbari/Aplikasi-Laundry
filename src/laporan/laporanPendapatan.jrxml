@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Created with Jaspersoft Studio -->
+<jasperReport
+    xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://jasperreports.sourceforge.net/jasperreports
+        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+
+    name="laporanPendapatan"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="555"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20"
+    uuid="8ee837a7-93bf-47b8-ac9a-ac8c602a6a6d">
+
+    <!-- QUERY -->
+    <queryString>
+        <![CDATA[
+            SELECT
+                tanggal_bayar,
+                SUM(total_bayar) AS total_pendapatan
+            FROM pembayaran
+            GROUP BY tanggal_bayar
+            ORDER BY tanggal_bayar ASC
+        ]]>
+    </queryString>
+
+    <!-- FIELD -->
+    <field name="tanggal_bayar" class="java.lang.String"/>
+    <field name="total_pendapatan" class="java.lang.Double"/>
+
+    <!-- VARIABLE TOTAL -->
+    <variable name="grand_total"
+              class="java.lang.Double"
+              calculation="Sum">
+
+        <variableExpression><![CDATA[
+            $F{total_pendapatan}
+        ]]></variableExpression>
+    </variable>
+
+    <!-- TITLE -->
+    <title>
+        <band height="60">
+
+            <staticText>
+                <reportElement
+                    x="120"
+                    y="10"
+                    width="320"
+                    height="30"
+                    uuid="c6b9f13c-8596-4a9b-8581-8e9d93363964"/>
+
+                <textElement textAlignment="Center">
+                    <font size="18" isBold="true"/>
+                </textElement>
+
+                <text><![CDATA[LAPORAN PENDAPATAN LAUNDRY]]></text>
+            </staticText>
+
+            <!-- GARIS -->
+            <line>
+                <reportElement
+                    x="120"
+                    y="45"
+                    width="320"
+                    height="1"/>
+            </line>
+
+        </band>
+    </title>
+
+    <!-- HEADER -->
+    <columnHeader>
+        <band height="25">
+
+            <!-- TANGGAL -->
+            <staticText>
+                <reportElement
+                    x="100"
+                    y="0"
+                    width="150"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Center"
+                    verticalAlignment="Middle">
+
+                    <font isBold="true"/>
+                </textElement>
+
+                <text><![CDATA[TANGGAL]]></text>
+            </staticText>
+
+            <!-- TOTAL PENDAPATAN -->
+            <staticText>
+                <reportElement
+                    x="280"
+                    y="0"
+                    width="200"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Center"
+                    verticalAlignment="Middle">
+
+                    <font isBold="true"/>
+                </textElement>
+
+                <text><![CDATA[TOTAL PENDAPATAN]]></text>
+            </staticText>
+
+        </band>
+    </columnHeader>
+
+    <!-- DETAIL -->
+    <detail>
+        <band height="25">
+
+            <!-- TANGGAL -->
+            <textField>
+                <reportElement
+                    x="100"
+                    y="0"
+                    width="150"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Center"
+                    verticalAlignment="Middle"/>
+
+                <textFieldExpression><![CDATA[
+                    $F{tanggal_bayar}
+                ]]></textFieldExpression>
+            </textField>
+
+            <!-- TOTAL PENDAPATAN -->
+            <textField pattern="Rp #,##0">
+                <reportElement
+                    x="280"
+                    y="0"
+                    width="200"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Right"
+                    verticalAlignment="Middle"/>
+
+                <textFieldExpression><![CDATA[
+                    $F{total_pendapatan}
+                ]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <!-- SUMMARY -->
+    <summary>
+        <band height="40">
+
+            <!-- LABEL TOTAL -->
+            <staticText>
+                <reportElement
+                    x="100"
+                    y="10"
+                    width="150"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Center"
+                    verticalAlignment="Middle">
+
+                    <font isBold="true"/>
+                </textElement>
+
+                <text><![CDATA[TOTAL KESELURUHAN]]></text>
+            </staticText>
+
+            <!-- GRAND TOTAL -->
+            <textField pattern="Rp #,##0">
+                <reportElement
+                    x="280"
+                    y="10"
+                    width="200"
+                    height="25"/>
+
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+
+                <textElement
+                    textAlignment="Right"
+                    verticalAlignment="Middle">
+
+                    <font isBold="true"/>
+                </textElement>
+
+                <textFieldExpression><![CDATA[
+                    $V{grand_total}
+                ]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </summary>
+
+</jasperReport>

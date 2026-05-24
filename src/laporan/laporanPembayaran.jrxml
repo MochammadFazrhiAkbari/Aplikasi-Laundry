@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporanPembayaran" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c6a6c9b-3996-4b46-9944-e853cc24507c">
+	<queryString>
+		<![CDATA[SELECT
+                id_pembayaran,
+                tanggal_bayar,
+                id_transaksi,
+                total_bayar,
+                status
+            FROM pembayaran
+            ORDER BY tanggal_bayar ASC]]>
+	</queryString>
+	<field name="id_pembayaran" class="java.lang.String"/>
+	<field name="tanggal_bayar" class="java.lang.String"/>
+	<field name="id_transaksi" class="java.lang.String"/>
+	<field name="total_bayar" class="java.lang.Double"/>
+	<field name="status" class="java.lang.String"/>
+	<title>
+		<band height="60">
+			<staticText>
+				<reportElement x="120" y="10" width="320" height="30" uuid="c97d4478-c0ae-4b36-bd7d-40f7bd775790"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN PEMBAYARAN]]></text>
+			</staticText>
+			<line>
+				<reportElement x="120" y="45" width="320" height="1" uuid="f02618ee-5cd9-4517-97bb-055c60938143"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="25" uuid="31d539ad-378a-4834-b2c1-51629fbd88d1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID BAYAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="120" height="25" uuid="4d95b349-9c2b-4806-ba4d-8a2519e0766a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANGGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="120" height="25" uuid="2ac430c1-0a3b-40b0-b03e-c7a80acbcbc4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID TRANSAKSI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="110" height="25" uuid="e41a2e03-be27-44cc-966e-b3285664fe86"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL BAYAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="105" height="25" uuid="bf8cb956-ef3e-4b1c-8297-1ea6906ba00b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="25" uuid="35700e23-04d7-40ab-8b4d-4219baa8d1ea"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_pembayaran}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="120" height="25" uuid="5a6c51b9-7360-443b-8cfd-147f961cf35f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tanggal_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="120" height="25" uuid="13e3a64c-d717-4f0b-9d65-7f7dfc058b88"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_transaksi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="Rp #,##0">
+				<reportElement x="340" y="0" width="110" height="25" uuid="1b1b163c-9c66-47ea-be47-2c98d8adbdbf"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="105" height="25" uuid="205127cc-cb6c-4064-b6fa-0f021d509f49"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
